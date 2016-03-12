@@ -1,0 +1,44 @@
+{
+  "name": "tabs",
+  "version": "0.0.1",
+  "description": "A better guitar tabs site",
+  "main": "server.js",
+  "scripts": {
+    "test": "gulp test:all",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dvicklund/tabs.git"
+  },
+  "author": "david@vicklund.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dvicklund/tabs/issues"
+  },
+  "homepage": "https://github.com/dvicklund/tabs#readme",
+  "devDependencies": {
+    "angular": "^1.4.8",
+    "chai": "^3.4.1",
+    "chai-http": "^1.0.0",
+    "gulp": "^3.9.0",
+    "gulp-concat-css": "^2.2.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-minify-css": "^1.2.2",
+    "gulp-mocha": "^2.2.0",
+    "gulp-sass": "^2.1.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "jshint": "^2.9.1-rc2",
+    "jshint-stylish": "^2.1.0",
+    "mocha": "^2.3.4",
+    "webpack-stream": "^3.1.0"
+  },
+  "dependencies": {
+    "angular-route": "^1.4.8",
+    "bcrypt": "^0.8.5",
+    "body-parser": "^1.14.2",
+    "eat": "^0.1.1",
+    "express": "^4.13.3",
+    "mongoose": "^4.3.4"
+  }
+}
