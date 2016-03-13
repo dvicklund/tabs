@@ -8,12 +8,12 @@ module.exports = function(app) {
 		$scope.getPopularTabs = function() {
 			$http.get('/api/tabs/popular')
 			.then(function(res) {
+				$scope.tabs = res.data;
 				console.log(res.data);
 			})
 		}
 
 		$scope.submitNew = function(newTab) {
-
 			$http.post('/api/tab', newTab)
 			.then(function(res) {
 				console.log(res.data);
@@ -21,6 +21,5 @@ module.exports = function(app) {
 				console.log(err);
 			})
 		}
-
 	}]);
 };

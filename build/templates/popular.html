@@ -7,6 +7,9 @@
     </select>
   </label>
   <table ng-init="getPopularTabs()">
-    <td ng-repeat="tab in tabs"></td>
+    <tr ng-repeat="tab in tabs">
+      <td>{{tab.title}}</td>
+      <td>{{tab.artist}}</td>
+    </tr>
   </table>
 </main>
