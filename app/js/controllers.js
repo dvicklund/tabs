@@ -1,4 +1,5 @@
 module.exports = function(app) {
-	require('./tabs/tabController')(app);
-	require('./users/userController')(app);
+	require('./controllers/tabCtrl')(app);
+	require('./controllers/authCtrl')(app);
+	require('./controllers/profileCtrl')(app);
 };

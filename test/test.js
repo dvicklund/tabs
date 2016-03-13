@@ -9,6 +9,7 @@ require(__dirname + "/../server");
 process.env.MONGOLAB_URI = "mongodb://localhost/tabdb_test";
 
 describe('routes', function() {
+  var createdId;
 
   describe('tab routes', function() {
     it('should be able to make a new tab', function(done) {
@@ -21,6 +22,7 @@ describe('routes', function() {
           console.log(res.body);
           expect(res.body.title).to.eql('allspice');
           expect(res.body).to.have.property('_id');
+          createdId = res.body._id;
           done();
         });
     });
@@ -34,6 +36,18 @@ describe('routes', function() {
           done();
         });
     });
+
+    it('should get a single tab by id', function(done) {
+      chai.request('localhost:3000')
+        .get('/api/tab/' + createdId)
+        .end(function(err, res) {
+          expect(err).to.eql(null);
+          expect(res.body).to.exist;
+          expect(res.body[0]._id).to.eql(createdId);
+          expect(res.body[0].title).to.eql('allspice');
+          done();
+        })
+    })
 
     describe('tab transformation', function() {
       beforeEach(function(done) {
@@ -119,5 +133,6 @@ describe('routes', function() {
     mongoose.connection.db.dropDatabase(function() {
       done();
     });
+
   });
 });

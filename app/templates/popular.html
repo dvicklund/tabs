@@ -1,0 +1,12 @@
+<main>
+  <h2>Most Popular Tabs</h2>
+  <label for="sort">Sort By:
+    <select name="sort">
+      <option value="hits">Hits</option>
+      <option value="rating">Rating</option>
+    </select>
+  </label>
+  <table ng-init="getPopularTabs()">
+    <td ng-repeat="tab in tabs"></td>
+  </table>
+</main>

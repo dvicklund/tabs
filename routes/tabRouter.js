@@ -9,9 +9,23 @@ var tabRouter = module.exports = exports = express.Router();
 tabRouter.get('/tabs', function(req, res) {
   Tab.find({}, function(err, data) {
     if(err) return handleError(err, res);
-    console.log("result from tabs:get : " + data);
-    res.send(data);
+    res.json(data);
   });
+});
+
+// TODO: Edit to make query for popular tabs
+tabRouter.get('/tabs/popular', function(req, res) {
+  Tab.find({}, function(err, data) {
+    if(err) return handleError(err, res);
+    res.json(data);
+  })
+})
+
+tabRouter.get('/tab/:id', function(req, res) {
+  Tab.find({_id: req.params.id}, function(err, data) {
+    if(err) return handleError(err, res);
+    res.json(data);
+  })
 });
 
 tabRouter.post('/tab', bodyParser.json(), function(req, res) {
