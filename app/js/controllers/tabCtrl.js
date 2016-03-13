@@ -1,7 +1,8 @@
 module.exports = function(app) {
-	app.controller('tabCtrl', ['$scope', 'crudResource', '$http', function($scope, $crudResource, $http) {
+	app.controller('tabCtrl', ['$scope', 'crudResource', '$http', '$location', function($scope, $crudResource, $http, $location) {
 		var tabCrud = $crudResource('tab');
 
+		$scope.tab = {};
 		$scope.tabs = [];
 		$scope.newTab = {};
 
@@ -16,7 +17,18 @@ module.exports = function(app) {
 		$scope.submitNew = function(newTab) {
 			$http.post('/api/tab', newTab)
 			.then(function(res) {
-				console.log(res.data);
+				newTab = {};
+				$location.path('/tab/' + res.data._id);
+			}, function(err) {
+				console.log(err);
+			})
+		}
+
+		$scope.getTab = function() {
+			var tabId = $location.path().split('/')[2]
+			$http.get('/api/tab/' + tabId)
+			.then(function(res) {
+				$scope.tab = res.data[0];
 			}, function(err) {
 				console.log(err);
 			})

@@ -21,5 +21,9 @@ module.exports = function(app) {
       templateUrl: 'templates/profile.html',
       controller: 'authCtrl'
     })
+    .when('/tab/:id', {
+      templateUrl: 'templates/tabView.html',
+      controller: 'tabCtrl'
+    })
   }])
 }
