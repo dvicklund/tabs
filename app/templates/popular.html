@@ -8,7 +8,7 @@
   </label>
   <table ng-init="getPopularTabs()">
     <tr ng-repeat="tab in tabs">
-      <td>{{tab.title}}</td>
+      <td><a href="#/tab/{{tab._id}}">{{tab.title}}</a></td>
       <td>{{tab.artist}}</td>
     </tr>
   </table>

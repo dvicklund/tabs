@@ -33,5 +33,9 @@ module.exports = function(app) {
 				console.log(err);
 			})
 		}
+
+		$scope.getByArtist = function() {
+
+		}
 	}]);
 };

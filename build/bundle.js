@@ -31623,6 +31623,10 @@
 					console.log(err);
 				})
 			}
+
+			$scope.getByArtist = function() {
+
+			}
 		}]);
 	};
 
