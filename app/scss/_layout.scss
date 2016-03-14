@@ -4,12 +4,10 @@ body {
   align-items: center;
 }
 
-#intro {
-  margin: 2em 25%;
+textarea.vertical {
+  resize: vertical;
 }
 
-@media (max-width: 700px) {
-  #intro {
-    margin: 2em 10%;
-  }
+pre {
+  word-wrap: break-word;
 }

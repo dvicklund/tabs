@@ -2,5 +2,9 @@
 <nav>
   <a href="#/popular" class="float-left">Popular Tabs</a>
   <a href="#/submit" class="float-right">Submit a Tab</a>
-  <input type="text" name="search" placeholder="Search Tabs">
+  <input type="search" autosave name="search" placeholder="Search Tabs" ng-keydown="">
+  <label for="searchBy">Search By:
+    <input type="radio" name="searchBy" value="artist">Artist</input>
+    <input type="radio" name="searchBy" value="title">Title</input>
+  </label>
 </nav>

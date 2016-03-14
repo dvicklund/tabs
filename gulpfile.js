@@ -7,7 +7,7 @@ var concatCss = require('gulp-concat-css');
 var sourcemaps = require('gulp-sourcemaps');
 
 var paths = {
-  css: ['app/**/*.scss'],
+  css: ['app/**/*.scss', 'app/**/*.sass'],
   html: ['app/**/*.html'],
   js: ['app/**/*.js'],
   test: ['test/test.js']

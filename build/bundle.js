@@ -31600,7 +31600,6 @@
 				$http.get('/api/tabs/popular')
 				.then(function(res) {
 					$scope.tabs = res.data;
-					console.log(res.data);
 				})
 			}
 
