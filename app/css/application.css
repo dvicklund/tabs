@@ -2623,5 +2623,8 @@ textarea.vertical {
 pre {
   word-wrap: break-word; }
 
+.centerHead {
+  text-align: center; }
+
 textarea.vertical {
   font-family: monospace; }
