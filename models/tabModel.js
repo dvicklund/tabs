@@ -7,6 +7,7 @@ var tabSchema = new mongoose.Schema({
 	artist: String,	// This is the recording ARTIST
 	author: {type: Schema.Types.ObjectId, ref: 'User'},	// This is the tab's AUTHOR
 	dateCreated: {type: Date, default: Date.now()},
+	views: Number,
 	ratings: [Number],
 	type: String,
 	body: String,

@@ -1,6 +1,5 @@
 module.exports = function(app) {
-	app.controller('tabCtrl', ['$scope', 'crudResource', '$http', '$location', function($scope, $crudResource, $http, $location) {
-		var tabCrud = $crudResource('tab');
+	app.controller('tabCtrl', ['$scope',  '$http', '$location', '$route', function($scope, $http, $location, $route) {
 
 		$scope.tab = {};
 		$scope.tabs = [];
@@ -23,18 +22,21 @@ module.exports = function(app) {
 			})
 		}
 
+		// TODO: I don't like the multiple ajax requests here - fix it
 		$scope.getTab = function() {
-			var tabId = $location.path().split('/')[2]
+			var tabId = $route.current.params.id;
 			$http.get('/api/tab/' + tabId)
 			.then(function(res) {
-				$scope.tab = res.data[0];
+				$http.patch('/api/tab/view/' + tabId)
+				.then(function(res) {
+					$scope.tab = res.data;
+					$scope.tab.date = new Date($scope.tab.dateCreated).toLocaleDateString();
+				}, function(err) {
+					console.log(err)
+				})
 			}, function(err) {
 				console.log(err);
 			})
-		}
-
-		$scope.getByArtist = function() {
-
 		}
 	}]);
 };

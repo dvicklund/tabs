@@ -15,7 +15,7 @@ tabRouter.get('/tabs', function(req, res) {
 
 // TODO: Edit to make query for popular tabs
 tabRouter.get('/tabs/popular', function(req, res) {
-  Tab.find({}, function(err, data) {
+  Tab.find().limit(100).sort({views: -1}).exec(function(err, data) {
     if(err) return handleError(err, res);
     res.json(data);
   })
@@ -28,6 +28,34 @@ tabRouter.get('/tab/:id', function(req, res) {
   })
 });
 
+//
+//  SEARCH
+//
+// tabRouter.get('/tab/search/title/:search', bodyParser.json(), function(req, res) {
+//   var query = {title: new RegExp(req.params.search, 'i')};
+//   Tab.find(query, function(err, data) {
+//     if(err) return handleError(err, res);
+//     res.json(data);
+//   })
+// })
+//
+// tabRouter.get('/tab/search/artist/:search', function(req, res) {
+//   var query = {artist: new RegExp(req.params.search, 'i')};
+//   Tab.find(query, function(err, data) {
+//     if(err) return handleError(err, res);
+//     res.json(data);
+//   })
+// })
+
+tabRouter.get('/tab/search/:search', function(req, res) {
+  var rxp = new RegExp(req.params.search, 'i');
+  var query = {$or: [{artist: rxp}, {title: rxp}]};
+  Tab.find(query, function(err, data) {
+    if(err) return handleError(err, res);
+    res.json(data);
+  })
+})
+
 tabRouter.post('/tab', bodyParser.json(), function(req, res) {
   var newTab = new Tab(req.body);
   newTab.save(function(err, data) {
@@ -35,6 +63,13 @@ tabRouter.post('/tab', bodyParser.json(), function(req, res) {
     res.json(data);
   });
 });
+
+tabRouter.patch('/tab/view/:id', bodyParser.json(), function(req, res) {
+  Tab.findOneAndUpdate({_id: req.params.id}, {$inc: {views: 1}}, {new: true}, function(err, data) {
+    if(err) return handleError(err, res);
+    res.json(data);
+  })
+})
 
 tabRouter.put('/tab/:id', bodyParser.json(), function(req, res) {
   var tabData = req.body;

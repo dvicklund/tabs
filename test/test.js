@@ -5,15 +5,15 @@ chai.use(chaihttp);
 var expect = chai.expect;
 var Tab = require(__dirname + "/../models/tabModel");
 
-require(__dirname + "/../server");
 process.env.MONGOLAB_URI = "mongodb://localhost/tabdb_test";
+require(__dirname + "/../server");
 
 describe('routes', function() {
   var createdId;
 
   describe('tab routes', function() {
     it('should be able to make a new tab', function(done) {
-      var tabData = {title: "allspice"};
+      var tabData = {title: "allspice", views: 0};
       chai.request('localhost:3000')
         .post('/api/tab')
         .send(tabData)
@@ -22,6 +22,7 @@ describe('routes', function() {
           console.log(res.body);
           expect(res.body.title).to.eql('allspice');
           expect(res.body).to.have.property('_id');
+          expect(res.body).to.have.property('views');
           createdId = res.body._id;
           done();
         });
@@ -45,6 +46,18 @@ describe('routes', function() {
           expect(res.body).to.exist;
           expect(res.body[0]._id).to.eql(createdId);
           expect(res.body[0].title).to.eql('allspice');
+          done();
+        })
+    })
+
+    it('should increment view count', function(done) {
+      chai.request('localhost:3000')
+        .patch('/api/tab/view/' + createdId)
+        .end(function(err, res) {
+          expect(err).to.eql(null);
+          expect(res.body._id).to.eql(createdId);
+          expect(res.body.views).to.eql(1);
+          console.log(res.body);
           done();
         })
     })

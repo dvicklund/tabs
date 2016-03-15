@@ -50,9 +50,8 @@
 
 	var tabApp = angular.module('TabApp', ['ngRoute']);
 	__webpack_require__(4)(tabApp);
-	__webpack_require__(6)(tabApp);
-	__webpack_require__(11)(tabApp);
-	__webpack_require__(16)(tabApp);
+	__webpack_require__(10)(tabApp);
+	__webpack_require__(15)(tabApp);
 
 
 /***/ },
@@ -31523,7 +31522,10 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function(app) {
-	  __webpack_require__(5)(app);
+		__webpack_require__(5)(app);
+		__webpack_require__(6)(app);
+		__webpack_require__(8)(app);
+		__webpack_require__(9)(app);
 	};
 
 
@@ -31531,66 +31533,8 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	var handleSuccess = function(cb) {
-	  return function(res) {
-	    cb(null, res.data);
-	  };
-	};
-
-	var handleFail = function(cb) {
-	  return function(res) {
-	    cb(res.data);
-	  };
-	};
-
 	module.exports = function(app) {
-	  app.factory('crudResource', function($http) {
-	    return function(resourceName) {
-	      var resource = {};
-
-	      resource.getAll = function(cb) {
-	        $http.get('/api/' + resourceName)
-	          .then(handleSuccess(cb), handleFail(cb));
-	      };
-
-	      resource.create = function(data, cb) {
-	        $http.post('/api/' + resourceName, data)
-	          .then(handleSuccess(cb), handleFail(cb));
-	      };
-
-	      resource.update = function(data, cb) {
-	        $http.put('/api/' + resourceName + '/' + data._id, data)
-	          .then(handleSuccess(cb), handleFail(cb));
-	      };
-
-	      resource.delete = function(data, cb) {
-	        $http.delete('/api/' + resourceName + '/' + data._id)
-	          .then(handleSuccess(cb), handleFail(cb));
-	      };
-
-	      return resource;
-	    };
-	  });
-	};
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = function(app) {
-		__webpack_require__(7)(app);
-		__webpack_require__(8)(app);
-		__webpack_require__(10)(app);
-	};
-
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	module.exports = function(app) {
-		app.controller('tabCtrl', ['$scope', 'crudResource', '$http', '$location', function($scope, $crudResource, $http, $location) {
-			var tabCrud = $crudResource('tab');
+		app.controller('tabCtrl', ['$scope',  '$http', '$location', '$route', function($scope, $http, $location, $route) {
 
 			$scope.tab = {};
 			$scope.tabs = [];
@@ -31613,28 +31557,31 @@
 				})
 			}
 
+			// TODO: I don't like the multiple ajax requests here - fix it
 			$scope.getTab = function() {
-				var tabId = $location.path().split('/')[2]
+				var tabId = $route.current.params.id;
 				$http.get('/api/tab/' + tabId)
 				.then(function(res) {
-					$scope.tab = res.data[0];
+					$http.patch('/api/tab/view/' + tabId)
+					.then(function(res) {
+						$scope.tab = res.data;
+						$scope.tab.date = new Date($scope.tab.dateCreated).toLocaleDateString();
+					}, function(err) {
+						console.log(err)
+					})
 				}, function(err) {
 					console.log(err);
 				})
-			}
-
-			$scope.getByArtist = function() {
-
 			}
 		}]);
 	};
 
 
 /***/ },
-/* 8 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var unitedStatesList = __webpack_require__(9);
+	var unitedStatesList = __webpack_require__(7);
 
 	module.exports = function(app) {
 
@@ -31759,7 +31706,7 @@
 
 
 /***/ },
-/* 9 */
+/* 7 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -31826,7 +31773,7 @@
 
 
 /***/ },
-/* 10 */
+/* 8 */
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
@@ -31893,19 +31840,77 @@
 
 
 /***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
+/* 9 */
+/***/ function(module, exports) {
 
 	module.exports = function(app) {
-		__webpack_require__(12)(app);
-		__webpack_require__(13)(app);
-		__webpack_require__(14)(app);
-		__webpack_require__(15)(app);
+		app.controller('searchCtrl', ['$scope', '$http', '$location', '$route', function($scope, $http, $location, $route) {
+
+			$scope.tabs = [];
+			$scope.searchText = '';
+			$scope.sortType = 'artist';
+			$scope.sortAsc = true;
+
+			// Thanks, underscore!
+			$scope.debounce = function(func, wait, immediate) {
+				var timeout;
+				return function() {
+					var context = this, args = arguments;
+					var later = function() {
+						timeout = null;
+						if (!immediate) func.apply(context, args);
+					};
+					var callNow = immediate && !timeout;
+					clearTimeout(timeout);
+					timeout = setTimeout(later, wait);
+					if (callNow) func.apply(context, args);
+				};
+			};
+
+	    $scope.getSearchResults = function() {
+	      $location.path('/search');
+				$http.get('/api/tab/search/' + $scope.searchText)
+	      .then(function(res) {
+	        $scope.tabs = res.data;
+	      }, function(err) {
+	        console.log(err);
+	      });
+	    }
+
+			$scope.search = $scope.debounce(function() {
+	      if($scope.searchText) {
+	        $scope.getSearchResults();
+	      }
+			}, 600);
+
+	    $scope.radioChange = function() {
+	      if($scope.searchText) {
+	        $scope.getSearchResults();
+	      }
+	    }
+
+			$scope.sort = function(type) {
+				$scope.sortType = type;
+				$scope.sortAsc = !$scope.sortAsc;
+			}
+		}]);
 	};
 
 
 /***/ },
-/* 12 */
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function(app) {
+		__webpack_require__(11)(app);
+		__webpack_require__(12)(app);
+		__webpack_require__(13)(app);
+		__webpack_require__(14)(app);
+	};
+
+
+/***/ },
+/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
@@ -31939,7 +31944,7 @@
 
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
@@ -31947,6 +31952,7 @@
 	    return {
 	      restrict: 'AC',
 	      replace: false,
+	      controller: 'searchCtrl',
 	      templateUrl: 'templates/header.html'
 	    };
 	  });
@@ -31954,7 +31960,7 @@
 
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
@@ -31969,7 +31975,7 @@
 
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
@@ -31984,7 +31990,7 @@
 
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
@@ -31998,10 +32004,6 @@
 	      templateUrl: 'templates/login.html',
 	      controller: 'authCtrl'
 	    })
-	    .when('/submit', {
-	      templateUrl: 'templates/newTab.html',
-	      controller: 'tabCtrl'
-	    })
 	    .when('/popular', {
 	      templateUrl: 'templates/popular.html',
 	      controller: 'tabCtrl'
@@ -32009,6 +32011,14 @@
 	    .when('/profile', {
 	      templateUrl: 'templates/profile.html',
 	      controller: 'authCtrl'
+	    })
+	    .when('/search', {
+	      templateUrl: 'templates/search.html',
+	      controllerAs: 'searchCtrl'
+	    })
+	    .when('/submit', {
+	      templateUrl: 'templates/newTab.html',
+	      controller: 'tabCtrl'
 	    })
 	    .when('/tab/:id', {
 	      templateUrl: 'templates/tabView.html',

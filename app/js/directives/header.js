@@ -3,6 +3,7 @@ module.exports = function(app) {
     return {
       restrict: 'AC',
       replace: false,
+      controller: 'searchCtrl',
       templateUrl: 'templates/header.html'
     };
   });

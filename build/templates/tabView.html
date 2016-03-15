@@ -1,7 +1,13 @@
 <section ng-init="getTab()">
 	<a href="/edit">Edit this Tab</a>
-	<h2>{{tab.title}}</h2>
-	<h3>{{tab.artist}}</h3>
-	<h4>{{tab.type}}</h4>
+	<h3>
+		<span>{{tab.title}}</span>
+		<span class="float-right">by {{tab.artist}}</span>
+	</h3>
+	<h5>
+		<span>{{tab.type}}<span>
+		<span class="float-right">{{tab.date}}</span>
+	</h5>
+
 	<pre><code>{{tab.body}}</code></pre>
 </section>

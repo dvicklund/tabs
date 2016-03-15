@@ -2,9 +2,5 @@
 <nav>
   <a href="#/popular" class="float-left">Popular Tabs</a>
   <a href="#/submit" class="float-right">Submit a Tab</a>
-  <input type="search" autosave name="search" placeholder="Search Tabs" ng-keydown="">
-  <label for="searchBy">Search By:
-    <input type="radio" name="searchBy" value="artist">Artist</input>
-    <input type="radio" name="searchBy" value="title">Title</input>
-  </label>
+  <input type="text" autosave name="search" placeholder="Search Tabs" ng-model="searchText" ng-keydown="search()">
 </nav>

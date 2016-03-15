@@ -9,10 +9,6 @@ module.exports = function(app) {
       templateUrl: 'templates/login.html',
       controller: 'authCtrl'
     })
-    .when('/submit', {
-      templateUrl: 'templates/newTab.html',
-      controller: 'tabCtrl'
-    })
     .when('/popular', {
       templateUrl: 'templates/popular.html',
       controller: 'tabCtrl'
@@ -20,6 +16,14 @@ module.exports = function(app) {
     .when('/profile', {
       templateUrl: 'templates/profile.html',
       controller: 'authCtrl'
+    })
+    .when('/search', {
+      templateUrl: 'templates/search.html',
+      controllerAs: 'searchCtrl'
+    })
+    .when('/submit', {
+      templateUrl: 'templates/newTab.html',
+      controller: 'tabCtrl'
     })
     .when('/tab/:id', {
       templateUrl: 'templates/tabView.html',
