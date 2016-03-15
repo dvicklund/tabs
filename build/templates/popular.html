@@ -1,13 +1,8 @@
 <main>
   <h2>Most Popular Tabs</h2>
-  <label for="sort">Sort By:
-    <select name="sort">
-      <option value="hits">Hits</option>
-      <option value="rating">Rating</option>
-    </select>
-  </label>
   <table ng-init="getPopularTabs()">
     <tr ng-repeat="tab in tabs">
+      <td>{{tabs.indexOf(tab) + 1}}.</td>
       <td><a href="#/tab/{{tab._id}}">{{tab.title}}</a></td>
       <td>{{tab.artist}}</td>
       <td>{{tab.views}} views</td>

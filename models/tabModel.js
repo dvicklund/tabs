@@ -8,7 +8,6 @@ var tabSchema = new mongoose.Schema({
 	author: {type: Schema.Types.ObjectId, ref: 'User'},	// This is the tab's AUTHOR
 	dateCreated: {type: Date, default: Date.now()},
 	views: Number,
-	ratings: [Number],
 	type: String,
 	body: String,
 	comments: [{body: String, date: Date}]
