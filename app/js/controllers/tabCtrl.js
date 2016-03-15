@@ -4,10 +4,13 @@ module.exports = function(app) {
 		$scope.tab = {};
 		$scope.tabs = [];
 		$scope.newTab = {};
+		$scope.loading = true;
 
 		$scope.getPopularTabs = function() {
+			$scope.loading = true;
 			$http.get('/api/tabs/popular')
 			.then(function(res) {
+				$scope.loading = false;
 				$scope.tabs = res.data;
 			})
 		}
