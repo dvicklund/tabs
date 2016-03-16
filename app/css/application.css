@@ -2623,6 +2623,10 @@ textarea.vertical {
 pre {
   word-wrap: break-word; }
 
+.head {
+  display: flex;
+  justify-content: center; }
+
 .centerHead {
   text-align: center; }
 

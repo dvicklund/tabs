@@ -31853,6 +31853,7 @@
 			$scope.searchText = '';
 			$scope.sortType = 'artist';
 			$scope.sortAsc = true;
+			$scope.loading = true;
 
 			// Thanks, underscore!
 			$scope.debounce = function(func, wait, immediate) {
@@ -31871,10 +31872,12 @@
 			};
 
 	    $scope.getSearchResults = function() {
+				$scope.loading = true;
 	      $location.path('/search');
 				$http.get('/api/tab/search/' + $scope.searchText)
 	      .then(function(res) {
 	        $scope.tabs = res.data;
+					$scope.loading = false;
 	      }, function(err) {
 	        console.log(err);
 	      });

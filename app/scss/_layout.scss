@@ -12,6 +12,12 @@ pre {
   word-wrap: break-word;
 }
 
+.head {
+  display: flex;
+  // align-items: center;
+  justify-content: center;
+}
+
 .centerHead {
   text-align: center;
 }

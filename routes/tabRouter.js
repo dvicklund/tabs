@@ -28,25 +28,6 @@ tabRouter.get('/tab/:id', function(req, res) {
   })
 });
 
-//
-//  SEARCH
-//
-// tabRouter.get('/tab/search/title/:search', bodyParser.json(), function(req, res) {
-//   var query = {title: new RegExp(req.params.search, 'i')};
-//   Tab.find(query, function(err, data) {
-//     if(err) return handleError(err, res);
-//     res.json(data);
-//   })
-// })
-//
-// tabRouter.get('/tab/search/artist/:search', function(req, res) {
-//   var query = {artist: new RegExp(req.params.search, 'i')};
-//   Tab.find(query, function(err, data) {
-//     if(err) return handleError(err, res);
-//     res.json(data);
-//   })
-// })
-
 tabRouter.get('/tab/search/:search', function(req, res) {
   var rxp = new RegExp(req.params.search, 'i');
   var query = {$or: [{artist: rxp}, {title: rxp}]};
