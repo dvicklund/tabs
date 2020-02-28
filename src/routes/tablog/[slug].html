@@ -4,6 +4,7 @@
 
 <h1>{tab.title} ({tab.type})</h1>
 <h2>by {tab.artist}</h2>
+<h3>{tab.views} views since {tab.datecreated}</h3>
 
 <pre class='content'>
 	{@html tab.body}
@@ -13,6 +14,12 @@
 	h2 {
 		text-align: center;
 	}
+
+	h3 {
+		text-align: right;
+		color: lightgrey;
+	}
+
 	/*
 		By default, CSS is locally scoped to the component,
 		and any unused styles are dead-code-eliminated.

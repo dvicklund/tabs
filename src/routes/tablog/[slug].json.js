@@ -12,9 +12,6 @@ export async function get(req, res, next) {
 			'Content-Type': 'application/json'
 		});
 
-		console.log("TAB: ")
-		console.log(tab)
-
 		res.end(JSON.stringify(tab[0]));
 	} else {
 		res.writeHead(404, {
