@@ -1,7 +1,11 @@
 import knex from 'knex'
-import * as config from '../.config.js'
+// import * as config from '../.config.js'
 
-const db = knex(config.default.postgres || process.env.DATABASE)
+const config = process.env.DATABASE;
+
+console.log(config)
+
+const db = knex(config.default.postgres)
 
 const tabs = {
   get: async function(slug) {
