@@ -10,7 +10,7 @@
 				tell Sapper to load the data for the page as soon as
 				the user hovers over the link or taps it, instead of
 				waiting for the 'click' event -->
-		<li><a rel='prefetch' href='tablog/{tab.slug}'>{tab.title}</a></li>
+		<li><a rel='prefetch' href='tabs/{tab.slug}'>{tab.title}</a></li>
 	{/each}
 </ul>
 
@@ -24,7 +24,7 @@
 <script>
 	export default {
 		preload({ params, query }) {
-			return this.fetch(`tablog.json`).then(r => r.json()).then(tabs => {
+			return this.fetch(`tabs.json`).then(r => r.json()).then(tabs => {
 				return { tabs };
 			});
 		}
