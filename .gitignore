@@ -62,7 +62,7 @@ typings/
 
 # Sensitive .config files
 .config.js
-.connection_scripts.config
+.connection_scripts.bash
 
 # svelte build folder
 __sapper__/*

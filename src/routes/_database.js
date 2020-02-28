@@ -1,9 +1,9 @@
 import knex from 'knex'
-// import * as config from '../.config.js'
+import * as config from '../../.config.js'
 
-const config = process.env.DATABASE;
+// const configFile = require('../.config.js')
 
-console.log(config)
+// const config = process.env.DATABASE
 
 const db = knex(config.default.postgres)
 
@@ -21,6 +21,11 @@ const tabs = {
   submitNew: async function(newTab) {
     console.log('Inserting new tab...')
     return await db('tabs').insert(newTab)
+  },
+
+  checkHealth: async function() {
+    console.log('Checking database...')
+    return await db.raw('select * from tabs')
   }
 }
 

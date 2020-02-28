@@ -1,15 +1,18 @@
 <svelte:head>
-	<title>{tab.title}</title>
+	<title>{tab.artist} - {tab.title}</title>
 </svelte:head>
 
-<h1>{tab.title}</h1>
-<h2>{tab.artist}</h2>
+<h1>{tab.title} ({tab.type})</h1>
+<h2>by {tab.artist}</h2>
 
 <pre class='content'>
 	{@html tab.body}
 </pre>
 
 <style>
+	h2 {
+		text-align: center;
+	}
 	/*
 		By default, CSS is locally scoped to the component,
 		and any unused styles are dead-code-eliminated.

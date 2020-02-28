@@ -26,6 +26,10 @@
 	     because `app/client.js` references it -->
 	<div id='sapper'>%sapper.html%</div>
 
+	<footer>
+		<p>WikiTabs &copy;2020 David Vicklund</p>
+	</footer>
+
 	<!-- Sapper creates a <script> tag containing `app/client.js`
 	     and anything else it needs to hydrate the app and
 	     initialise the router -->
@@ -37,5 +41,14 @@
 	h1 {
 		text-align: center;
 		margin: 0.2em auto;
+	}
+
+	footer {
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		margin: 0.2em auto;
+		text-align: center;
+		font-style: oblique;
 	}
 </style>
