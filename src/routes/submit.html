@@ -1,0 +1,77 @@
+<script>
+  async function submitNewTab(body) {
+    console.log(body)
+  }
+</script>
+
+<h2>Submit New Tab</h2>
+
+<form id="newTabForm">
+  <section>
+    <label for="title">Song Title</label>
+    <input type="text" name="title" value="" placeholder="title">
+  </section>
+
+  <section>
+    <label for="artist">Artist</label>
+    <input type="text" name="artist" value="" placeholder="artist">
+  </section>
+
+  <section>
+    <label for="type">Tab Type:</label>
+    <br>
+    <label for="tab">Tab</label>
+    <input type="radio" name="type" class="tabType" value="tab" id="tab">
+    <label for="chords">Chords</label>
+    <input type="radio" name="type" class="tabType" value="chords" id="chords">
+    <label for="lyrics">Lyrics</label>
+    <input type="radio" name="type" class="tabType" value="lyrics" id="lyrics">
+  </section>
+
+  <section>
+    <label for="tabContent">Tab</label>
+    <textarea name="tabContent" rows="20" cols="80" placeholder="Write me up baby"></textarea>
+  </section>
+
+  <button type="submit" name="submitNew">Submit Tab</button>
+</form>
+
+<style media="screen">
+  input {
+    display: block;
+  }
+
+  label {
+    display: inline-block;
+  }
+
+  textarea {
+    font-family: monospace;
+    font-size:0.9em;
+  }
+
+  @media only screen and (max-width: 1024px) {
+    form {
+      padding: 1em 0;
+    }
+
+    section {
+      padding: 0.6em 0;
+    }
+
+    label {
+      display: inline;
+      margin-left: 1em;
+    }
+
+    input {
+      display: inline;
+      margin-left: 1em;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 1em;
+    }
+  }
+</style>

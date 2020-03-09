@@ -64,8 +64,11 @@
 			const data = await res.json();
 
 			if (res.status === 200) {
+				console.log('Got Tab:')
+				console.log(data)
 				return { tab: data };
 			} else {
+				console.log(res)
 				this.error(res.status, data.message);
 			}
 		}

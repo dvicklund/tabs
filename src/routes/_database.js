@@ -17,12 +17,12 @@ const tabs = {
 
   getRecent: async function() {
     console.log('Getting recent tabs...')
-    return await db.select().from('tabs').orderBy('datecreated').limit(10)
+    return await db.select('id','title','artist','datecreated').from('tabs').orderBy('datecreated', 'desc').limit(10)
   },
 
   getPopular: async function() {
     console.log('Getting popular tabs...')
-    return await db.select().from('tabs').orderBy('views').limit(40)
+    return await db.select('id','title','artist','views','type','slug').from('tabs').orderBy('views').limit(40)
   },
 
   submitNew: async function(newTab) {

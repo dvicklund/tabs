@@ -9,7 +9,7 @@ export async function get(req, res) {
 	})
 
 	// const recentTabs = await db.checkHealth().catch((e) => {console.log("ERROR: "); console.log(e)})
-
+	//
 	// console.log(recentTabs)
 
 	res.writeHead(200, {

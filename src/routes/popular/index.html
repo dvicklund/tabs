@@ -27,10 +27,10 @@
 
 <script>
 	export default {
-		preload({ params, query }) {
+		async preload({ params, query }) {
 			return this.fetch(`popular.json`).then(r => r.json()).then(tabs => {
 				return { tabs };
-			});
+			})
 		}
 	};
 </script>
