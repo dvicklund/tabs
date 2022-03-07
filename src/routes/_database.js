@@ -3,7 +3,8 @@ import knex from 'knex'
 
 const config = {
   client: 'postgresql',
-  connection: process.env.DATABASE_URL
+  connection: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
 }
 
 const db = knex(config)
